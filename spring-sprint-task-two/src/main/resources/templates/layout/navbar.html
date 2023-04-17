@@ -4,16 +4,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{'/request/home'}">Все Заявки</a>
+                    <a class="nav-link" th:href="@{'/request/home'}">Все Заявки</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{'/request/new-request'}">Новые Заявки</a>
+                    <a class="nav-link" th:href="@{'/request/new-request'}">Новые Заявки</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{'/request/processed-request'}">Обработанные Заявки</a>
+                    <a class="nav-link" th:href="@{'/request/processed-request'}">Обработанные Заявки</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{'/request/add-request'}">+Добавить заявку</a>
+                    <a class="nav-link" th:href="@{'/request/add-request'}">+Добавить заявку</a>
                 </li>
             </ul>
             <form th:action="@{'/request/search'}" method="get" class="d-flex">
