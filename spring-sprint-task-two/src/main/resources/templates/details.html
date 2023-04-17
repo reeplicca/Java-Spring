@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="site_content">
+        <div class="row">
+            <form th:action="@{'/request/update'}" method="post">
+                <div class="form-group">
+                    <label class="form-label" th:text="${request.isHandled()?'Обработанная заявка':'***Новая необработанная заявка***'}"></label>
+                </div>
+                <input type="hidden" th:value="${request.getId()}" name="request-id">
+                <div class="form-group">
+                    <label class="form-label">ФИО:</label>
+                    <input type="text" class="form-control" th:value="${request.getUserName()}" name="request-username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Курс:</label>
+                    <select class="form-select" name="request-coursename" th:value="${request.getCourseName()}">
+                        <option>Курс1</option>
+                        <option>Курс2</option>
+                        <option>Курс3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Телефон:</label>
+                    <input type="text" class="form-control" name="request-phone" th:value="${request.getPhone()}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Комментарии:</label>
+                    <textarea class="form-control" name="request-commentary" cols="30" rows="10" th:text="${request.getCommentary()}"></textarea>
+                </div>
+                <div class="form-group" th:if="${not request.isHandled()}">
+                    <button class="btn btn-success" >Обработать Заявку</button>
+                </div>
+            </form>
+            <form th:action="'/request/delete'" method="post">
+                <input type="hidden" th:value="${request.getId()}" name="request-id">
+                <div class="form-group">
+                    <button class="btn btn-danger">Удалить Заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</html>
