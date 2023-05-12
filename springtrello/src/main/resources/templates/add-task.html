@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="content">
+        <input type="button" onclick="history.back();" value="Назад"/>
+        <div class="row">
+            <form th:action="@{'/trello/add-task'}" method="post">
+                <input type="hidden" name="folder-id" th:value="${folder.getId()}">
+                <div class="form-group">
+                    <label class="form-label" th:text="#{label.title}">
+                    </label>
+                    <input type="text" class="form-control" name="task-title" th:placeholder="#{label.title}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" th:text="#{label.description}">
+                    </label>
+                    <textarea class="form-control" name="task-description" cols="30" rows="10" th:placeholder="#{label.description}"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" th:text="#{button.addtask}">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="content">
+        <input type="button" onclick="history.back();" value="Назад"/>
+        <div class="row mt-5">
+            <div class="col-md-3" th:each="categories : ${taskcategories}">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${categories.getName()}"></h4>
+                        <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+                        <a th:href="@{'/trello/category-details/' + ${categories.getId()}}" class="card-link">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <form th:action="@{'/trello/add-categories'}" method="post">
+                <div class="form-group">
+                    <label class="form-label" th:text="#{label.categoryname}">
+                    </label>
+                    <input type="text" class="form-control" name="categories-name" th:placeholder="#{label.categoryname}">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" th:text="#{button.addcategory}">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</html>

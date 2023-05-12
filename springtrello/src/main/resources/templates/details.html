@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="content">
+        <input type="button" onclick="history.back();" value="Назад"/>
+        <div class="row">
+            <form th:action="@{'/trello/update'}" method="post">
+                <input type="hidden" th:value="${task.getId()}" name="task-id">
+                <input type="hidden" name="fold-id" th:value="${fold.getId()}">
+                <div class="form-group">
+                    <label class="form-label" th:text="#{label.title}">
+                    </label>
+                    <input type="text" class="form-control" name="task-title" th:value="${task.getTitle()}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" th:text="#{label.description}">
+                    </label>
+                    <textarea class="form-control" name="task-description" cols="30" rows="10" th:text="${task.getDescription()}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" th:text="#{label.status}">
+                    </label>
+                    <select name="task-status" class="form-control" th:selected="${task.getStatus()}">
+                        <option th:text="#{option.todo}" value="0"></option>
+                        <option th:text="#{option.intest}" value="1"></option>
+                        <option th:text="#{option.done}" value="2"></option>
+                        <option th:text="#{option.failed}" value="3"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" th:text="#{button.savetask}"></button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal" th:text="#{button.delete}"></button>
+                </div>
+            </form>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form th:action="@{'/trello/delete'}" method="post">
+                        <input type="hidden" name="task-id" th:value="${task.getId()}">
+                        <input type="hidden" name="fold-id" th:value="${fold.getId()}">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5 th:text="#{message.confirm}"></h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{button.cancel}"></button>
+                                <button class="btn btn-danger" th:text="#{button.okey}"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

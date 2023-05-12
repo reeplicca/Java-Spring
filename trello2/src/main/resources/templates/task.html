@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="content">
+        <input type="button" onclick="history.back();" value="Назад"/>
+        <div class="row mt-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-text text-center" th:text="${folder.getName()}"></h3>
+                </div>
+                <div class="card-body d-flex justify-content-evenly">
+                    <h6 class="card-title">Categories Name:</h6>
+                    <h6 class="card-text" th:each="categories : ${taskCategories}" th:text="${categories.getName()}"></h6>
+                </div>
+                <div class="card-footer">
+                    <a th:href="@{'/trello/new-categories/' + ${folder.getId()}}" class="btn btn-info btn-sm" th:text="#{button.newcategory}"></a>
+                </div>
+            </div>
+        </div>
+        <a th:href="@{'/trello/add-task/' + ${folder.getId()}}" class="btn btn-primary btn-sm mt-5" th:text="#{button.newtask}"></a>
+        <div class="row mt-5">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td th:text="#{label.taskname}"></td>
+                            <td th:text="#{label.status}"></td>
+                            <td width="15%" th:text="#{label.details}"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="task : ${tasks}">
+                            <td th:text="${task.getId()}"></td>
+                            <td th:text="${task.getTitle()}"></td>
+                            <td th:switch="${task.getStatus()}">
+                                <span th:case="'0'" th:text="#{option.todo}" style="color: blue;font-weight: bold;"></span>
+                                <span th:case="'1'" th:text="#{option.intest}" style="color: gold;font-weight: bolder;"></span>
+                                <span th:case="'2'" th:text="#{option.done}" style="color: green;font-weight: bold;"></span>
+                                <span th:case="'3'" th:text="#{option.failed}" style="color: red;font-weight: bold;"></span>
+                            </td>
+                            <td>
+                                <a th:href="@{'/trello/details/' + ${task.getId()}}" class="btn btn-info btn-sm" th:text="#{label.vievmore}"></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</html>

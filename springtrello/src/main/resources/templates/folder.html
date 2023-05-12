@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/main.html">
+    <div layout:fragment="content">
+        <a th:href="@{'/trello/add-folder'}" class="btn btn-success btn-sm mt-5" th:text="#{button.newfolder}"></a>
+        <div class="container bg-dark mt-5">
+            <hr style="height: 3px"/>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4 pt-5" th:each="fold : ${folders}">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${fold.getName()}"></h4>
+                        <a th:href="@{'/trello/task/' + ${fold.getId()}}" class="btn btn-primary" th:text="#{label.details}"></a>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" th:text="#{button.delete}"></button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form th:action="@{'/trello/delete-folder'}" method="post">
+                                <input type="hidden" name="folder-id" th:value="${fold.getId()}">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h5 th:text="#{message.confirm}"></h5>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" th:text="#{button.cancel}"></button>
+                                        <button class="btn btn-danger" th:text="#{button.okey}"></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
